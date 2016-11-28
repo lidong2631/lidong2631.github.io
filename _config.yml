@@ -51,7 +51,7 @@ social:
 
 # Postal address (add as many lines as necessary)
 address:
-  - line: 2623 Camino Ramon
+  #- line: 2623 Camino Ramon
   - line: San Ramon, CA 94583
 
 # Credits content
