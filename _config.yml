@@ -52,7 +52,7 @@ social:
 # Postal address (add as many lines as necessary)
 address:
   #- line: 2623 Camino Ramon
-  - line: San Ramon, CA 94583
+  - line: San Ramon, CA
 
 # Credits content
 credits: 'Powered by <a style="color:#9ACD32;" href="https://jekyllrb.com/">Jekyll</a>, <a style="color:#9ACD32;" href="http://getbootstrap.com/">Bootstrap</a>, <a style="color:#9ACD32;" href="http://github.com/">Github</a>.'
