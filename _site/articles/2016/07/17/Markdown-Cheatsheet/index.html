@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    .highlight .c {
+      color: #c2b680;
+      background-color: #272822
+    }
+    
+    .highlight .err {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .g {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .k {
+      color: #ff6651;
+      font-weight: bold
+    }
+    
+    .highlight .l {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .n {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .o {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .x {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .p {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .cm {
+      color: #c2b680;
+      background-color: #272822
+    }
+    
+    .highlight .cp {
+      color: #c2aed0;
+      background-color: #272822
+    }
+    
+    .highlight .c1 {
+      color: #75715e;
+      background-color: #272822
+    }
+    
+    .highlight .cs {
+      color: #c2b680;
+      background-color: #272822
+    }
+    
+    .highlight .gd {
+      color: #dcdccc;
+      background-color: #8b0000
+    }
+    
+    .highlight .ge {
+      color: #d4b064;
+      text-decoration: underline;
+      background-color: #272822
+    }
+    
+    .highlight .gr {
+      color: #f07070;
+      background-color: #272822
+    }
+    
+    .highlight .gh {
+      color: #f7f7f1;
+      font-weight: bold;
+      background-color: #000
+    }
+    
+    .highlight .gi {
+      color: #dcdccc;
+      background-color: #008b00
+    }
+    
+    .highlight .go {
+      color: #9f8f80;
+      font-weight: bold;
+      background-color: #272822
+    }
+    
+    .highlight .gp {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .gs {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .gu {
+      color: #f7f7f1;
+      font-weight: bold;
+      background-color: #000
+    }
+    
+    .highlight .gt {
+      color: #f07070;
+      font-weight: bold;
+      background-color: #272822
+    }
+    
+    .highlight .kc {
+      color: #e0af91;
+      font-weight: bold;
+      background-color: #272822
+    }
+    
+    .highlight .kd {
+      color: #77d8eb;
+      font-weight: bold;
+      background-color: #272822
+    }
+    
+    .highlight .kn {
+      color: #e0af91;
+      font-weight: bold;
+      background-color: #272822
+    }
+    
+    .highlight .kp {
+      color: #e0af91;
+      font-weight: bold;
+      background-color: #272822
+    }
+    
+    .highlight .kr {
+      color: #e0af91;
+      font-weight: bold;
+      background-color: #272822
+    }
+    
+    .highlight .kt {
+      color: #dabfa5;
+      font-weight: bold;
+      background-color: #272822
+    }
+    
+    .highlight .ld {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .m {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .s {
+      color: #e6db6f
+    }
+    
+    .highlight .na {
+      color: #b5df5e
+    }
+    
+    .highlight .nb {
+      color: #dcdccc
+    }
+    
+    .highlight .nc {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .no {
+      color: #afe091;
+      background-color: #272822
+    }
+    
+    .highlight .nd {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .ni {
+      color: #d4b064;
+      background-color: #272822
+    }
+    
+    .highlight .ne {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .nf {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .nl {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .nn {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .nx {
+      color: #ff6651;
+      background-color: #272822
+    }
+    
+    .highlight .py {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .nt {
+      color: #ff6651;
+      font-weight: bold
+    }
+    
+    .highlight .nv {
+      color: #ff6651;
+      background-color: #272822
+    }
+    
+    .highlight .ow {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .w {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .mf {
+      color: #c2a4f8;
+      background-color: #272822
+    }
+    
+    .highlight .mh {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .mi {
+      color: #c2a4f8;
+      background-color: #272822
+    }
+    
+    .highlight .mo {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .sb {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .sc {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .sd {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .s2 {
+      color: #e6db6f;
+      background-color: #272822
+    }
+    
+    .highlight .se {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .sh {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .si {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .sx {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .sr {
+      color: #e6db6f;
+      background-color: #272822
+    }
+    
+    .highlight .s1 {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .ss {
+      color: #e6db6f;
+      background-color: #272822
+    }
+    
+    .highlight .bp {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    .highlight .vc {
+      color: #dabfa5;
+      background-color: #272822
+    }
+    
+    .highlight .vg {
+      color: #dabfa5;
+      background-color: #272822
+    }
+    
+    .highlight .vi {
+      color: #dabfa5;
+      background-color: #272822
+    }
+    
+    .highlight .il {
+      color: #dcdccc;
+      background-color: #272822
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+    
+    body {
+      background-color: #f5f5f5;
+      border-top: 5px solid #333;
+      font-family: 'Source Sans Pro', sans-serif;
+      color: #333;
+      font-weight: 400;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased
+    }
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    ul,
+    ol,
+    dl,
+    blockquote,
+    table,
+    img,
+    hr,
+    .fluid-width-video-wrapper,
+    .highlight {
+      margin-bottom: 20px
+    }
+    
+    blockquote {
+      padding: 0 30px;
+      border-left: 2px solid #cfcfcf
+    }
+    
+    ul,
+    ol {
+      margin-left: 40px
+    }
+    
+    img {
+      max-width: 100%;
+      height: auto;
+      border: none;
+      outline: none
+    }
+    
+    a {
+      text-decoration: none
+    }
+    
+    hr {
+      border: 0;
+      height: 25px;
+      background: url(/public/images/eagle.png) center center no-repeat
+    }
+    
+    code {
+      font-family: Consolas, "Liberation Mono", Courier, monospace;
+      font-size: .8rem
+    }
+    
+    p code {
+      padding: 0px 5px;
+      border: 1px solid #ddd;
+      background-color: #f8f8f8;
+      border-radius: 3px;
+      white-space: nowrap
+    }
+    
+    table {
+      border-collapse: collapse;
+      border: 1px solid #333
+    }
+    
+    table td,
+    table th {
+      border: 1px solid #333;
+      padding: 5px 10px
+    }
+    
+    table thead {
+      background-color: #dcdcdc
+    }
+    
+    dt {
+      float: left;
+      width: 30%;
+      font-weight: bold
+    }
+    
+    dd {
+      float: right;
+      width: 70%
+    }
+    
+    footer {
+      font-size: .8rem;
+      text-align: center
+    }
+    
+    .azul a {
+      color: #0070bb
+    }
+    
+    .azul a:hover {
+      color: #035
+    }
+    
+    .ruby a {
+      color: #e0115f
+    }
+    
+    .ruby a:hover {
+      color: #810a37
+    }
+    
+    .amber a {
+      color: #ff7e00
+    }
+    
+    .amber a:hover {
+      color: #994c00
+    }
+    
+    .avocado a {
+      color: #568203
+    }
+    
+    .avocado a:hover {
+      color: #141e01
+    }
+    
+    .title {
+      color: #4682B4
+    }
+    
+    .highlight {
+      padding: 30px;
+      border-radius: 6px;
+      background-color: #272822;
+      color: #f8f8f2;
+      line-height: 1;
+      overflow-x: overlay
+    }
+    
+    .highlight code {
+      font-size: .7rem
+    }
+    
+    .container {
+      max-width: 750px;
+      padding: 0 20px;
+      margin: 0px auto;
+    }
+    
+    .center {
+      text-align: center
+    }
+    
+    .right {
+      float: right
+    }
+    
+    .left {
+      float: left;
+      margin: 0 20px 20px 0
+    }
+    
+    .top-navbar {
+      margin-bottom: 40px;
+      height: 110px
+    }
+    
+    .top-navbar a {
+      display: inline-block;
+      color: #333;
+      padding: 66px 20px 25px;
+      margin-right: 10px;
+      margin-top: -5px;
+      text-transform: uppercase;
+      border-radius: 0 0 5px 5px;
+      border-bottom: 1px solid #4d4d4d;
+      transition: all ease-in-out .3s
+    }
+    
+    .top-navbar a:hover,
+    .top-navbar a.current-page {
+      color: #f5f5f5;
+      border-bottom: none
+    }
+    
+    .top-navbar a:hover {
+      background-color: #333;
+      transform: translateY(5px)
+    }
+    
+    .top-navbar a.current-page {
+      background-color: #333
+    }
+    
+    .archive,
+    .single {
+      margin-bottom: 100px
+    }
+    
+    .single {
+      font-size: 1.125rem;
+      line-height: 28px
+    }
+    
+    .single time {
+      color: #999;
+      font-size: .9rem
+    }
+    
+    .bundle {
+      border-top: 1px solid #b3b3b3;
+      padding-top: 10px;
+      margin-bottom: 10px
+    }
+    
+    .post-date {
+      text-align: right
+    }
+    
+    .not-found {
+      margin-top: 150px;
+      text-align: center;
+      font-size: 2rem
+    }
+    
+    .not-found h1 {
+      font-size: 8rem
+    }
+    
+    .tags {
+      color: #9ACD32
+    }
+    
+    dl,
+    .clearfix:before,
+    .clearfix:after {
+      content: " ";
+      display: table
+    }
+    
+    dl,
+    .clearfix:after {
+      clear: both
+    }
+    
+    #logo {
+      display: inline-block;
+      height: 110px;
+      width: 110px;
+      background-size: 90px 90px;
+      background-position: left center;
+      background-repeat: no-repeat
+    }
+    
+    @media screen and (max-width: 767px) {
+      .top-navbar {
+        height: 35px;
+        text-align: center;
+        margin-top: 40px
+      }
+      .top-navbar a {
+        padding: 5px 10px;
+        margin: 5px;
+        border-radius: 0;
+        border: 1px solid #333;
+        transition: none
+      }
+      .top-navbar a:hover {
+        transform: none
+      }
+      .bundle,
+      .post-date {
+        text-align: center
+      }
+      #logo {
+        background-position: center center
+      }
+    }
+  </style>
+  <!--TOOD: Refactor CSS for article-->
+
+
+
+  <!-- Facebook Pixel Code -->
+  <script>
+    !funcStion(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1746803185590692');
+  fbq('track', "ViewContent");
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1746803185590692&ev=PageView&noscript=1"
+    /></noscript>
+  <!-- End Facebook Pixel Code -->
+
+
+</head>
+
+<body>
+  <div class="container azul">
+    <article class="single row gutters">
+      <time class="published" datetime="2016-07-17">17 July 2016</time>
+      <h1 class="title">Markdown Cheatsheet</h1> <p><strong>Markdown</strong> is a lightweight markup language with plain text formatting syntax designed so that it can be converted to HTML 
+and many other formats using a tool by the same name. Markdown is often used to format readme files, for writing messages in 
+online discussion forums, and to create rich text using a plain text editor.</p>
+
+<p>Below are the most common used markdowns:</p>
+
+<p>Table of Contents:<br /></p>
+<ul>
+	<li class="page-scroll">
+		<a href="#headers">Headers</a><br />
+	</li>
+	<li class="page-scroll">
+		<a href="#emphasis">Emphasis</a><br />
+	</li>
+	<li class="page-scroll">
+		<a href="#lists">Lists</a><br />
+	</li>
+	<li class="page-scroll">
+		<a href="#links">Links</a><br />
+	</li>
+	<li class="page-scroll">
+		<a href="#images">Images</a><br />
+	</li>
+	<li class="page-scroll">
+		<a href="#code">Code</a><br />
+	</li>
+	<li class="page-scroll">
+		<a href="#tables">Tables</a><br />
+	</li>
+	<li class="page-scroll">
+		<a href="#blockquotes">Blockquotes</a><br />
+	</li>
+	<li class="page-scroll">
+		<a href="#horizontal">Horizontal Rule</a><br />
+	</li>
+	<li class="page-scroll">
+		<a href="#backslash">Backslash</a><br />
+	</li>
+</ul>
+
+<section id="headers">
+	<h1>Headers</h1>
+</section>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="err">#</span> <span class="n">H1</span>
+<span class="err">##</span> <span class="n">H2</span>
+<span class="err">###</span> <span class="n">H3</span>
+<span class="err">####</span> <span class="n">H4</span>
+<span class="err">#####</span> <span class="n">H5</span>
+<span class="err">######</span> <span class="n">H6</span>
+</code></pre>
+</div>
+
+<h1 id="h1">H1</h1>
+<h2 id="h2">H2</h2>
+<h3 id="h3">H3</h3>
+<h4 id="h4">H4</h4>
+<h5 id="h5">H5</h5>
+<h6 id="h6">H6</h6>
+
+<section id="emphasis">
+	<h1>Emphasis</h1>
+</section>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Emphasis</span><span class="o">,</span> <span class="n">aka</span> <span class="n">italics</span><span class="o">,</span> <span class="n">with</span> <span class="o">*</span><span class="n">asterisks</span><span class="o">*</span> <span class="n">or</span> <span class="n">_underscores_</span><span class="o">.</span>
+
+<span class="n">Strong</span> <span class="n">emphasis</span><span class="o">,</span> <span class="n">aka</span> <span class="n">bold</span><span class="o">,</span> <span class="n">with</span> <span class="o">**</span><span class="n">asterisks</span><span class="o">**</span> <span class="n">or</span> <span class="n">__underscores__</span><span class="o">.</span>
+</code></pre>
+</div>
+
+<p>Emphasis, aka italics, with <em>asterisks</em> or <em>underscores</em>.</p>
+
+<p>Strong emphasis, aka bold, with <strong>asterisks</strong> or <strong>underscores</strong>.</p>
+
+<section id="lists">
+	<h1>Lists</h1>
+</section>
+<p>Bullet List:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">*</span> <span class="n">Item</span>
+<span class="o">*</span> <span class="n">Item</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>Item</li>
+  <li>Item</li>
+</ul>
+
+<p>Numbered List:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="mi">1</span><span class="o">.</span> <span class="n">Item</span>
+<span class="mi">2</span><span class="o">.</span> <span class="n">Item</span>
+</code></pre>
+</div>
+
+<ol>
+  <li>Item</li>
+  <li>Item</li>
+</ol>
+
+<p>Mix List:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1. Item
+2. Item
+    * Item
+</code></pre>
+</div>
+
+<ol>
+  <li>Item</li>
+  <li>Item
+    <ul>
+      <li>Item</li>
+    </ul>
+  </li>
+</ol>
+
+<section id="links">
+	<h1>Links</h1>
+</section>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">[</span><span class="n">I</span><span class="err">'</span><span class="n">m</span> <span class="n">an</span> <span class="n">inline</span><span class="o">-</span><span class="n">style</span> <span class="n">link</span><span class="o">](</span><span class="nl">https:</span><span class="c1">//www.google.com)</span>
+</code></pre>
+</div>
+
+<p><a href="https://www.google.com">I’m an inline-style link</a></p>
+
+<section id="images">
+	<h1>Images</h1>
+</section>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Inline</span><span class="o">-</span><span class="nl">style:</span>
+
+<span class="o">![</span><span class="n">alt</span> <span class="n">text</span><span class="o">](</span><span class="nl">https:</span><span class="c1">//github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")</span>
+
+<span class="n">Reference</span><span class="o">-</span><span class="nl">style:</span> 
+
+<span class="o">![</span><span class="n">alt</span> <span class="n">text</span><span class="o">][</span><span class="n">logo</span><span class="o">]</span>
+
+<span class="o">[</span><span class="n">logo</span><span class="o">]:</span> <span class="nl">https:</span><span class="c1">//github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"</span>
+</code></pre>
+</div>
+
+<p>Inline-style: 
+<img src="https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png" alt="alt text" title="Logo Title Text 1" /></p>
+
+<p>Reference-style: 
+<img src="https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png" alt="alt text" title="Logo Title Text 2" /></p>
+
+<section id="code">
+	<h1>Code</h1>
+</section>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Inline</span> <span class="err">`</span><span class="n">code</span><span class="err">`</span> <span class="n">has</span> <span class="err">`</span><span class="n">back</span><span class="o">-</span><span class="n">ticks</span> <span class="n">around</span><span class="err">`</span> <span class="n">it</span><span class="o">.</span>
+</code></pre>
+</div>
+
+<p>Inline <code class="highlighter-rouge">code</code> has <code class="highlighter-rouge">back-ticks around</code> it.</p>
+
+<p>Blocks of code are fenced by lines with three back-ticks ```</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="err">```</span><span class="n">javascript</span>
+<span class="n">var</span> <span class="n">s</span> <span class="o">=</span> <span class="s">"JavaScript syntax highlighting"</span><span class="o">;</span>
+<span class="n">alert</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="s2">"JavaScript syntax highlighting"</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<section id="tables">
+	<h1>Tables</h1>
+</section>
+<p>There must be at least 3 dashes separating each header cell. The outer pipes (|) are optional, and you don’t need to make the raw Markdown 
+line up prettily. You can also use inline Markdown.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Markdown</span> <span class="o">|</span> <span class="n">Less</span> <span class="o">|</span> <span class="n">Pretty</span>
+<span class="o">---</span> <span class="o">|</span> <span class="o">---</span> <span class="o">|</span> <span class="o">---</span>
+<span class="o">*</span><span class="n">Still</span><span class="o">*</span> <span class="o">|</span> <span class="err">`</span><span class="n">renders</span><span class="err">`</span> <span class="o">|</span> <span class="o">**</span><span class="n">nicely</span><span class="o">**</span>
+<span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="mi">3</span>
+</code></pre>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Markdown</th>
+      <th>Less</th>
+      <th>Pretty</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><em>Still</em></td>
+      <td><code class="highlighter-rouge">renders</code></td>
+      <td><strong>nicely</strong></td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+
+<section id="blockquotes">
+	<h1>Blockquotes</h1>
+</section>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">&gt;</span> <span class="n">Blockquotes</span> <span class="n">are</span> <span class="n">very</span> <span class="n">handy</span> <span class="n">in</span> <span class="n">email</span> <span class="n">to</span> <span class="n">emulate</span> <span class="n">reply</span> <span class="n">text</span><span class="o">.</span>
+<span class="o">&gt;</span> <span class="n">This</span> <span class="n">line</span> <span class="n">is</span> <span class="n">part</span> <span class="n">of</span> <span class="n">the</span> <span class="n">same</span> <span class="n">quote</span><span class="o">.</span>
+
+<span class="n">Quote</span> <span class="k">break</span><span class="o">.</span>
+
+<span class="o">&gt;</span> <span class="n">This</span> <span class="n">is</span> <span class="n">a</span> <span class="n">very</span> <span class="kt">long</span> <span class="n">line</span> <span class="n">that</span> <span class="n">will</span> <span class="n">still</span> <span class="n">be</span> <span class="n">quoted</span> <span class="n">properly</span> <span class="n">when</span> <span class="n">it</span> <span class="n">wraps</span><span class="o">.</span> <span class="n">Oh</span> <span class="n">boy</span> <span class="n">let</span><span class="err">'</span><span class="n">s</span> <span class="n">keep</span> <span class="n">writing</span> <span class="n">to</span> <span class="n">make</span> <span class="n">sure</span> <span class="k">this</span> <span class="n">is</span> <span class="kt">long</span> <span class="n">enough</span> <span class="n">to</span> <span class="n">actually</span> <span class="n">wrap</span> <span class="k">for</span> <span class="n">everyone</span><span class="o">.</span> <span class="n">Oh</span><span class="o">,</span> <span class="n">you</span> <span class="n">can</span> <span class="o">*</span><span class="n">put</span><span class="o">*</span> <span class="o">**</span><span class="n">Markdown</span><span class="o">**</span> <span class="n">into</span> <span class="n">a</span> <span class="n">blockquote</span><span class="o">.</span> 
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Blockquotes are very handy in email to emulate reply text.
+This line is part of the same quote.</p>
+</blockquote>
+
+<p>Quote break.</p>
+
+<blockquote>
+  <p>This is a very long line that will still be quoted properly when it wraps. Oh boy let’s keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can <em>put</em> <strong>Markdown</strong> into a blockquote.</p>
+</blockquote>
+
+<section id="horizontal">
+	<h1>Horizontal Rule</h1>
+</section>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Three</span> <span class="n">or</span> <span class="n">more</span><span class="o">...</span>
+
+<span class="o">---</span>
+
+<span class="n">Hyphens</span>
+
+<span class="o">***</span>
+
+<span class="n">Asterisks</span>
+
+<span class="n">___</span>
+
+<span class="n">Underscores</span>
+</code></pre>
+</div>
+
+<p>Three or more…</p>
+
+<hr />
+
+<p>Hyphens</p>
+
+<hr />
+
+<p>Asterisks</p>
+
+<hr />
+
+<p>Underscores</p>
+
+<section id="backslash">
+	<h1>Backslash</h1>
+</section>
+<p>Use “\” to generate literal characters which would otherwise have special meaning in Markdown’s formatting syntax.</p>
+
+<p>For more complete info, see <a href="http://daringfireball.net/projects/markdown/">John Gruber’s original spec</a></p>
+
+
+    </article>
+
+    <!--Social Share-->
+    <!-- About Section -->
+<section id="share">
+  <style>
+    .share-page {
+      text-align: center;
+      background: $secondary-color;
+      color: $light-color;
+      padding: 8px 15px;
+      border-radius: 5px;
+      margin: 1.5 * $spacing-unit 0;
+      a {
+        font-weight: 700;
+        color: #fff;
+        margin-left: 10px;
+        &:hover {
+          border-bottom: 1px dashed #fff;
+        }
+      }
+    }
+  </style>
+
+  <div class="share-page">
+    Share this on &rarr;
+    <a href="https://twitter.com/intent/tweet?text=Markdown Cheatsheet&url=http://localhost:4000/articles/2016/07/17/Markdown-Cheatsheet/&via=&related="
+    rel="nofollow" target="_blank" title="Share on Twitter">Twitter</a>
+    <a href="https://facebook.com/sharer.php?u=http://localhost:4000/articles/2016/07/17/Markdown-Cheatsheet/" rel="nofollow" target="_blank" title="Share on Facebook">Facebook</a>
+    <a href="https://plus.google.com/share?url=http://localhost:4000/articles/2016/07/17/Markdown-Cheatsheet/" rel="nofollow" target="_blank" title="Share on Google+">Google+</a>
+    
+    <a href="http://pinterest.com/pin/create/button/?url=http://localhost:4000/articles/2016/07/17/Markdown-Cheatsheet/&description=Markdown Cheatsheet" rel="nofollow" target="_blank" title="Share on Pinterest">Pinterest</a>
+    <a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/articles/2016/07/17/Markdown-Cheatsheet/&title=Markdown Cheatsheet&summary=&source=" rel="nofollow" target="_blank" title="Share on LinkedIn">LinkedIn</a>
+    <a href="http://www.tumblr.com/share/link?url=http://localhost:4000/articles/2016/07/17/Markdown-Cheatsheet/&name=Markdown Cheatsheet&description=" rel="nofollow" target="_blank" title="Share on Tumblr">Tumblr</a>
+  </div>
+</section>
+
+
+    <!--FB comments-->
+    <div id="fb-root"></div>
+    <script>
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <div class="fb-comments" data-colorscheme="light" data-href="http://localhost:4000/articles/2016/07/17/Markdown-Cheatsheet/" data-width="100%" data-numposts="5"
+    data-order-by="reverse_time" data-mobile="Auto-detected"></div>
+  </div>
+
+
+</body>
+
+
+
+</html>

@@ -1,0 +1,11 @@
+---
+layout: default
+modal-id: 6
+date: 2014-07-15
+img: submarine.png
+alt: image-alt
+project-date: Unknown
+category: projects
+description: Coming soon
+
+---

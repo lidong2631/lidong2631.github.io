@@ -1,0 +1,11 @@
+---
+layout: default
+modal-id: 2
+date: 2016-07-01
+img: cake.png
+alt: image-alt
+project-date: July 2016
+category: projects
+description: A chat messenger that supports Facebook/Twitter authentication and utilizes socket.io for real time streaming functionality. The app can be visited <a href="http://chat-kitty.herokuapp.com/" target="_blank">here</a>
+
+---

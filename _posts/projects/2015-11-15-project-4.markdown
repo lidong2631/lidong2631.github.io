@@ -1,0 +1,11 @@
+---
+layout: default
+modal-id: 4
+date: 2015-11-15
+img: game.png
+alt: image-alt
+project-date: Nov 2016
+category: projects
+description: A tiny Twitter prototype app built in Rails. a very good resource for those who interested in learning Rails. It uses TDD for the whole development. The app can be seen <a href="http://dong-micropost.herokuapp.com" target="_blank">here</a>. (This app is from Ruby on Rails Tutorial)
+
+---

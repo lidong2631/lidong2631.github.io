@@ -1,0 +1,11 @@
+---
+layout: default
+modal-id: 1
+date: 2016-10-01
+img: cabin.png
+alt: image-alt
+project-date: Oct 2016
+category: projects
+description: Integrated WeChat payment service that provides different Payment Method including Quick Pay, QR Code Payment, In-App Web-based Payment, In-App Payment.
+
+---

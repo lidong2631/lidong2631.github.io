@@ -1,0 +1,11 @@
+---
+layout: default
+modal-id: 3
+date: 2016-05-01
+img: circus.png
+alt: image-alt
+project-date: May 2016
+category: projects
+description: A stock monitor app built entirely on AngularJS. It uses JSONP method to send asynchronous request to Yahoo Finance API for the latest stock price and other related information. Visited <a href="http://stockdog.io/" target="_blank">here</a> to play around with it. (This app is from Professional AngularJS book).
+
+---
