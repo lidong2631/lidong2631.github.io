@@ -667,7 +667,180 @@
   <div class="container azul">
     <article class="single row gutters">
       <time class="published" datetime="2016-11-18">18 November 2016</time>
-      <h1 class="title">Use AWS Elastic Beanstalk to set up a simple development environment</h1> <h1 id="aws-elastic-beanstalk">AWS Elastic Beanstalk</h1>
+      <h1 class="title">Create a Java Application to access EC2/S3/DynamoDB/RDS using Elastic Beanstalk</h1> <p><strong>AWS Elastic Beanstalk</strong> lets you quickly deploy and manage applications in the AWS cloud without worrying about the infrastructure that runs those applications. You simply upload your application and EB automatically handles the details of capacity provisioning, load balancing, scaling and application health monitoring.</p>
+
+<p>To use Elastic Beanstalk, you create an application, upload an application version in the form of an application source bundle (for example, a java .war file) to Elastic Beanstalk. EB automatically launches an environment and creates and configures the AWS resources needed to run your code. After your environment is launched, you can then manage your environment and deploy new application versions.</p>
+
+<p>Elastic Beanstalk supports several platform configurations for Java applications, including multiple versions of Java with the Tomcat application server and Java-only configurations for applications that do not use Tomcat.</p>
+
+<p>You can use <a href="https://aws.amazon.com/sdk-for-java/">AWS SDK for Java</a> to use other AWS services from within your Java application. The AWS SDK for Java is a set of libraries that allow you to use AWS APIs from your application code without writing the raw HTTP calls from scratch.</p>
+
+<p>If you use Eclipse IDE to develop your Java application, you can get the <a href="http://docs.aws.amazon.com/toolkit-for-eclipse/v1/user-guide/setup-install.html">AWS Toolkit for Eclipse</a>. The AWS Toolkit for Eclipse is an open source plug-in that lets you manage AWS resources, including Elastic Beanstalk applications and environments, from within the Eclipse IDE.</p>
+
+<p>If the command line is more your style, install the <a href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3.html">Elastic Beanstalk Command Line Interface</a> (EB CLI) and use it to create, monitor, and manage your Elastic Beanstalk environments from the command line. If you run multiple environments for your application, the EB CLI integrates with Git to let you associate each of your environments with a different Git branch.</p>
+
+<p>To demonstrate, I installed AWS Toolkit for Eclipse plug-in and after that, in Eclipse, click File-&gt;New-&gt;Project, under AWS folder, click “AWS Java Web Project”. Give it a name and click Finish.</p>
+
+<p>The project would be looked like below:</p>
+
+<p><img src="/img/articles/20161118/ProjectStructure.png" alt="ProjectStructure" /></p>
+
+<p>Put the following codes in index.jsp</p>
+
+<pre><code class="language-jsp">&lt;%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %&gt;
+&lt;%@ page import="com.amazonaws.*" %&gt;
+&lt;%@ page import="com.amazonaws.auth.*" %&gt;
+&lt;%@ page import="com.amazonaws.auth.profile.*" %&gt;
+&lt;%@ page import="com.amazonaws.services.ec2.*" %&gt;
+&lt;%@ page import="com.amazonaws.services.ec2.model.*" %&gt;
+&lt;%@ page import="com.amazonaws.services.s3.*" %&gt;
+&lt;%@ page import="com.amazonaws.services.s3.model.*" %&gt;
+&lt;%@ page import="com.amazonaws.services.dynamodbv2.*" %&gt;
+&lt;%@ page import="com.amazonaws.services.dynamodbv2.model.*" %&gt;
+&lt;%@ page import="com.amazonaws.services.rds.*" %&gt;
+&lt;%@ page import="com.amazonaws.services.rds.model.*" %&gt;
+&lt;%@ page import="java.sql.*" %&gt;
+
+&lt;%! // Share the client objects across threads to
+    // avoid creating new clients for each web request
+    private AmazonEC2         ec2;
+    private AmazonS3           s3;
+    private AmazonDynamoDB dynamo;
+    private AmazonRDS 		  rds;
+ %&gt;
+
+&lt;%
+    /*
+     * AWS Elastic Beanstalk checks your application's health by periodically
+     * sending an HTTP HEAD request to a resource in your application. By
+     * default, this is the root or default resource in your application,
+     * but can be configured for each environment.
+     *
+     * Here, we report success as long as the app server is up, but skip
+     * generating the whole page since this is a HEAD request only. You
+     * can employ more sophisticated health checks in your application.
+     */
+    if (request.getMethod().equals("HEAD")) return;
+%&gt;
+
+&lt;%
+    if (ec2 == null) {
+        AWSCredentialsProviderChain credentialsProvider = new AWSCredentialsProviderChain(
+            new InstanceProfileCredentialsProvider(),
+            new ProfileCredentialsProvider("default"));
+
+        ec2    = new AmazonEC2Client(credentialsProvider);
+        s3     = new AmazonS3Client(credentialsProvider);
+        dynamo = new AmazonDynamoDBClient(credentialsProvider);
+        rds    = new AmazonRDSClient(credentialsProvider);
+    }
+%&gt;
+
+&lt;%
+	// Read RDS connection information from environment
+	String dbName = System.getProperty("RDS_DB_NAME");
+	String userName = System.getProperty("RDS_USERNAME");
+	String password = System.getProperty("RDS_PASSWORD");
+	String hostname = System.getProperty("RDS_HOSTNAME");
+	String port = System.getProperty("RDS_PORT");
+	String jdbcUrl = "jdbc:mysql://" + hostname + ":" +
+		port + "/" + dbName + "?user=" + userName + "&amp;password=" + password;
+	
+	// Load JDBC driver
+	try {
+		System.out.println("Loading driver...");
+		Class.forName("com.mysql.jdbc.Driver");
+		System.out.println("Driver loaded!");
+	} catch (ClassNotFoundException e) {
+		throw new RuntimeException("Cannot find the driver in the classpath!", e);
+	}
+	
+	Connection conn = null;
+	Statement readStatement = null;
+	ResultSet resultSet = null;
+	String results = "";
+	int numresults = 0;
+	String statement = null;
+		
+	try {
+		conn = DriverManager.getConnection(jdbcUrl);
+		
+		readStatement = conn.createStatement();
+		resultSet = readStatement.executeQuery("SELECT * FROM YOUR_TABLE;");
+		
+		resultSet.next();
+		results = resultSet.getString(RESOURCE_NAME);
+		 
+		resultSet.close();
+		readStatement.close();
+		conn.close();
+		
+	} catch (SQLException ex) {
+		// Handle any errors
+		System.out.println("SQLException: " + ex.getMessage());
+		System.out.println("SQLState: " + ex.getSQLState());
+		System.out.println("VendorError: " + ex.getErrorCode());
+	} finally {
+		System.out.println("Closing the connection.");
+		if (conn != null) try { conn.close(); } catch (SQLException ignore) {}
+	}
+%&gt;
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta http-equiv="Content-type" content="text/html; charset=utf-8"&gt;
+    &lt;title&gt;Hello AWS Web World!&lt;/title&gt;
+    &lt;link rel="stylesheet" href="styles/styles.css" type="text/css" media="screen"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    
+    &lt;div id="content" class="container"&gt;
+        
+        &lt;div class="section s3"&gt;
+            &lt;h2&gt;Amazon S3 Buckets:&lt;/h2&gt;
+            &lt;ul&gt;
+            &lt;% for (Bucket bucket : s3.listBuckets()) { %&gt;
+               &lt;li&gt; &lt;%= bucket.getName() %&gt; &lt;/li&gt;
+            &lt;% } %&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+
+        &lt;div class="section sdb"&gt;
+            &lt;h2&gt;Amazon DynamoDB Tables:&lt;/h2&gt;
+            &lt;ul&gt;
+            &lt;% for (String tableName : dynamo.listTables().getTableNames()) { %&gt;
+               &lt;li&gt; &lt;%= tableName %&gt;&lt;/li&gt;
+            &lt;% } %&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+
+        &lt;div class="section ec2"&gt;
+            &lt;h2&gt;Amazon EC2 Instances:&lt;/h2&gt;
+            &lt;ul&gt;
+            &lt;% for (Reservation reservation : ec2.describeInstances().getReservations()) { %&gt;
+                &lt;% for (Instance instance : reservation.getInstances()) { %&gt;
+                   &lt;li&gt; &lt;%= instance.getInstanceId() %&gt;&lt;/li&gt;
+                &lt;% } %&gt;
+            &lt;% } %&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="section"&gt;
+        	&lt;h2&gt;Amazon RDS Tables:&lt;/h2&gt;
+        	&lt;p&gt;Established connection to RDS. Read first row: &lt;%= results %&gt;&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><br />
+This simple jsp file would access to your EC2, S3, DynamoDB and print the corresponding resource name. It also execute a simple query using mysql JDBC driver to fetch data from your RDS database. (You have to make sure you have permissions to access those services!)</p>
+
+<p>Here is my result for the jsp page:</p>
+
+<p><img src="/img/articles/20161118/jspResult.png" alt="jspResult" /></p>
 
     </article>
 
@@ -695,14 +868,14 @@
 
   <div class="share-page">
     Share this on &rarr;
-    <a href="https://twitter.com/intent/tweet?text=Use AWS Elastic Beanstalk to set up a simple development environment&url=http://localhost:4000/articles/2016/11/18/Use-AWS-Elastic-Beanstalk-to-set-up-a-simple-development-environment/&via=&related="
+    <a href="https://twitter.com/intent/tweet?text=Create a Java Application to access EC2/S3/DynamoDB/RDS using Elastic Beanstalk&url=http://localhost:4000/articles/2016/11/18/Create-a-Java-Application-to-access-EC2-S3-DynamoDB-RDS-using-Elastic-Beanstalk/&via=&related="
     rel="nofollow" target="_blank" title="Share on Twitter">Twitter</a>
-    <a href="https://facebook.com/sharer.php?u=http://localhost:4000/articles/2016/11/18/Use-AWS-Elastic-Beanstalk-to-set-up-a-simple-development-environment/" rel="nofollow" target="_blank" title="Share on Facebook">Facebook</a>
-    <a href="https://plus.google.com/share?url=http://localhost:4000/articles/2016/11/18/Use-AWS-Elastic-Beanstalk-to-set-up-a-simple-development-environment/" rel="nofollow" target="_blank" title="Share on Google+">Google+</a>
+    <a href="https://facebook.com/sharer.php?u=http://localhost:4000/articles/2016/11/18/Create-a-Java-Application-to-access-EC2-S3-DynamoDB-RDS-using-Elastic-Beanstalk/" rel="nofollow" target="_blank" title="Share on Facebook">Facebook</a>
+    <a href="https://plus.google.com/share?url=http://localhost:4000/articles/2016/11/18/Create-a-Java-Application-to-access-EC2-S3-DynamoDB-RDS-using-Elastic-Beanstalk/" rel="nofollow" target="_blank" title="Share on Google+">Google+</a>
     
-    <a href="http://pinterest.com/pin/create/button/?url=http://localhost:4000/articles/2016/11/18/Use-AWS-Elastic-Beanstalk-to-set-up-a-simple-development-environment/&description=Use AWS Elastic Beanstalk to set up a simple development environment" rel="nofollow" target="_blank" title="Share on Pinterest">Pinterest</a>
-    <a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/articles/2016/11/18/Use-AWS-Elastic-Beanstalk-to-set-up-a-simple-development-environment/&title=Use AWS Elastic Beanstalk to set up a simple development environment&summary=&source=" rel="nofollow" target="_blank" title="Share on LinkedIn">LinkedIn</a>
-    <a href="http://www.tumblr.com/share/link?url=http://localhost:4000/articles/2016/11/18/Use-AWS-Elastic-Beanstalk-to-set-up-a-simple-development-environment/&name=Use AWS Elastic Beanstalk to set up a simple development environment&description=" rel="nofollow" target="_blank" title="Share on Tumblr">Tumblr</a>
+    <a href="http://pinterest.com/pin/create/button/?url=http://localhost:4000/articles/2016/11/18/Create-a-Java-Application-to-access-EC2-S3-DynamoDB-RDS-using-Elastic-Beanstalk/&description=Create a Java Application to access EC2/S3/DynamoDB/RDS using Elastic Beanstalk" rel="nofollow" target="_blank" title="Share on Pinterest">Pinterest</a>
+    <a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/articles/2016/11/18/Create-a-Java-Application-to-access-EC2-S3-DynamoDB-RDS-using-Elastic-Beanstalk/&title=Create a Java Application to access EC2/S3/DynamoDB/RDS using Elastic Beanstalk&summary=&source=" rel="nofollow" target="_blank" title="Share on LinkedIn">LinkedIn</a>
+    <a href="http://www.tumblr.com/share/link?url=http://localhost:4000/articles/2016/11/18/Create-a-Java-Application-to-access-EC2-S3-DynamoDB-RDS-using-Elastic-Beanstalk/&name=Create a Java Application to access EC2/S3/DynamoDB/RDS using Elastic Beanstalk&description=" rel="nofollow" target="_blank" title="Share on Tumblr">Tumblr</a>
   </div>
 </section>
 
@@ -719,7 +892,7 @@
       }(document, 'script', 'facebook-jssdk'));
     </script>
 
-    <div class="fb-comments" data-colorscheme="light" data-href="http://localhost:4000/articles/2016/11/18/Use-AWS-Elastic-Beanstalk-to-set-up-a-simple-development-environment/" data-width="100%" data-numposts="5"
+    <div class="fb-comments" data-colorscheme="light" data-href="http://localhost:4000/articles/2016/11/18/Create-a-Java-Application-to-access-EC2-S3-DynamoDB-RDS-using-Elastic-Beanstalk/" data-width="100%" data-numposts="5"
     data-order-by="reverse_time" data-mobile="Auto-detected"></div>
   </div>
 
